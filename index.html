@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ironman 西班牙 12 日探索儀表板</title>
+    <title>Ironman 西班牙12日自由行</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -78,13 +78,13 @@
             <!-- Tab Navigation -->
             <nav class="flex justify-center border-b border-gray-200">
                 <button onclick="switchTab('dashboard')" class="tab-button active" id="tab-dashboard">
-                    儀表板
+                    地圖／準備清單
                 </button>
                 <button onclick="switchTab('itinerary')" class="tab-button" id="tab-itinerary">
-                    行程時間軸
+                    行程
                 </button>
                 <button onclick="switchTab('logistics')" class="tab-button" id="tab-logistics">
-                    物流/費用
+                    費用
                 </button>
             </nav>
         </div>
@@ -98,7 +98,7 @@
             <section>
                 <h2 class="text-3xl font-extrabold text-indigo-700 mb-6 border-b-2 border-indigo-200 pb-2">🎯 旅程概覽與準備行動</h2>
                 <p class="mb-8 text-gray-600">
-                    本儀表板匯集了 **12 日**西班牙之旅的關鍵數據。11/4 抵達馬德里後直接前往托雷多，開啟精彩旅程！
+                    本網站匯集了12日西班牙之旅的參考資料。11/4 抵達馬德里後直接前往托雷多，開啟精彩旅程！
                 </p>
 
                 <!-- Google My Maps 嵌入 -->
@@ -160,7 +160,7 @@
             <section>
                 <h2 class="text-3xl font-extrabold text-indigo-700 mb-6 border-b-2 border-indigo-200 pb-2">📅 12 日行程時間軸 (點擊查看細節)</h2>
                 <p class="mb-8 text-gray-600">
-                    從托雷多古城到馬貝拉海灘，從格拉納達的阿爾罕布拉宮到塞維亞的佛朗明哥，精彩 12 天等你探索！
+                    從托雷多古城到馬貝拉海灘，從格拉納達的阿爾罕布拉宮到塞維亞的佛朗明哥，再回到繁華的馬德里！
                 </p>
 
                 <div id="timeline-container" class="relative">
@@ -177,7 +177,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Logistics Summary Card -->
                     <div class="p-6 bg-white rounded-xl shadow-2xl flex flex-col justify-center">
-                        <h3 class="text-xl font-bold text-indigo-600 mb-3">🚗 核心物流決策</h3>
+                        <h3 class="text-xl font-bold text-indigo-600 mb-3">🚗 核心決策</h3>
                         <div class="space-y-4 text-gray-700">
                             <div class="p-3 bg-indigo-50 rounded-lg">
                                 <p class="font-semibold text-indigo-800">交通方案 (已確認)</p>
@@ -457,9 +457,9 @@
                 date: "11/8 (六)", 
                 location: "馬貝拉", 
                 title: "✨ 馬貝拉（女子組賽事）", 
-                transport: "SUV 協助後勤。", 
-                activities: ["8:00 雅菁開賽（女子組）", "親友團關鍵點位加油", "男生領取自行車（皓中哥、光武）", "男生轉換區 Check-in", "晚餐慶祝/早休息"],
-                food_recommendation: "賽後慶祝：享受馬貝拉的高級海鮮餐廳或 Tapas bar。",
+                transport: "待確認", 
+                activities: ["8:00 雅菁開賽（女子組）", "男生領取自行車（光武、皓中哥、志裕哥）", "男生轉換區 Check-in"],
+                food_recommendation: "繼續高碳水",
                 accommodationName: "La Maestranza 8 b Lotta (續住)",
                 accommodationAddress: "Calle las ventas, Bajo, 29670 馬貝拉, 西班牙"
             },
@@ -468,8 +468,8 @@
                 date: "11/9 (日)", 
                 location: "馬貝拉", 
                 title: "🔥 馬貝拉（男子組賽事）", 
-                transport: "SUV 協助後勤。", 
-                activities: ["8:00 男子組開賽（皓中哥、光武）", "游泳 (1.9km)", "自行車 (90km)", "跑步 (21.1km)", "終點線慶祝", "下午轉換區 Check-out", "慶祝晚宴"],
+                transport: "待確認", 
+                activities: ["8:00 男子組開賽（光武、皓中哥、志裕哥）", "游泳 (1.9km)", "自行車 (90km)", "跑步 (21.1km)", "終點線慶祝", "下午轉換區 Check-out", "慶祝晚宴"],
                 food_recommendation: "賽後慶祝晚宴，全體為三位鐵人喝采！",
                 accommodationName: "La Maestranza 8 b Lotta (最後一晚)",
                 accommodationAddress: "Calle las ventas, Bajo, 29670 馬貝拉, 西班牙"
