@@ -28,7 +28,7 @@
             top: 5px;
             width: 15px;
             height: 15px;
-            background-color: #4f46e5; /* Indigo-600 */
+            background-color: #4f46e5;
             border-radius: 50%;
             border: 3px solid #f7f7f7;
         }
@@ -150,10 +150,10 @@
             estimatedCost: 65000,
             costBreakdown: [
                 { label: "國際機票 (8人)", amount: 32000, percentage: 49.23, color: 'rgba(79, 70, 229, 0.8)' },
-                { label: "住宿 (11晚)", amount: 14000, percentage: 21.54, color: 'rgba(234, 88, 12, 0.8)' }, // Adjusted cost for 1 fewer night
+                { label: "住宿 (11晚)", amount: 14000, percentage: 21.54, color: 'rgba(234, 88, 12, 0.8)' },
                 { label: "租車/油費 (2 SUV)", amount: 8000, percentage: 12.31, color: 'rgba(129, 140, 248, 0.8)' },
                 { label: "賽事報名費", amount: 6500, percentage: 10.00, color: 'rgba(251, 191, 36, 0.8)' },
-                { label: "其他費用 (租車/保險等)", amount: 4500, percentage: 6.92, color: 'rgba(209, 213, 219, 0.8)' } // Re-allocated difference
+                { label: "其他費用 (租車/保險等)", amount: 4500, percentage: 6.92, color: 'rgba(209, 213, 219, 0.8)' }
             ]
         };
 
@@ -167,35 +167,20 @@
             { id: 7, text: "購買旅行/意外/醫療保險", completed: true },
         ];
 
-        // UPDATED ITINERARY DATA: Day 1 is now Toledo, Day 2 is long drive to Granada.
         const ITINERARY_DATA = [
-            // NEW DAY 1: Arrive MAD, Drive to Toledo, Overnight in Toledo
             { day: 1, date: "11/03 (一)", location: "托萊多 (Toledo)", title: "抵達、租車與古都巡禮", transport: "MAD 機場領取 2 輛 SUV，自駕至托萊多 (1hr)。", details: "上午：國際航班抵達馬德里 (MAD)，領取租車。下午：直接驅車前往托萊多並入住。傍晚在托萊多古城區輕鬆漫步，適應時差，並欣賞古城夜景。", activities: ["國際長途飛行", "領取 2 輛 SUV", "入住托萊多公寓", "托萊多古城區漫步"] },
-            // NEW DAY 2: Long Transfer to Granada
             { day: 2, date: "11/04 (二)", location: "格拉納達 (Granada)", title: "轉戰格拉納達 (長途轉場日)", transport: "SUV 自駕 (托萊多-格拉納達: 4.5hr)。", details: "早餐後，進行長途駕駛前往格拉納達。這是前往馬貝拉前最長的駕駛路段，請確保駕駛輪替與足夠的中途休息。傍晚抵達並入住。", activities: ["長途駕駛 (中停休息)", "入住格拉納達公寓", "晚餐與休息"] },
-            // NEW DAY 3 (Original Day 4)
             { day: 3, date: "11/05 (三)", location: "格拉納達", title: "阿爾罕布拉宮與城市探索", transport: "市區內移動。", details: "上午：參觀世界遺產阿爾罕布拉宮 (Alhambra Palace)，需提前預訂門票。下午：在阿爾拜辛區 (Albaicín) 欣賞宮殿美景。選手進行輕度訓練。", activities: ["阿爾罕布拉宮 (Alhambra)", "阿爾拜辛區散步", "塔帕斯晚餐"] },
-            // NEW DAY 4 (Original Day 5)
             { day: 4, date: "11/06 (四)", location: "馬貝拉 (Marbella)", title: "轉戰馬貝拉 & 賽事準備", transport: "SUV 自駕 (格拉納達-馬貝拉: 2hr)。", details: "上午：驅車前往馬貝拉。下午：Ironman 選手進行報到、領取物資及租賃自行車。非選手進行海灘休閒。晚上：準備週末的比賽。", activities: ["短途駕駛", "Ironman 選手報到", "領取租賃自行車", "海灘放鬆"] },
-            // NEW DAY 5 (Original Day 6)
             { day: 5, date: "11/07 (五)", location: "馬貝拉", title: "賽道勘查與裝備檢查", transport: "SUV 協助運送裝備。", details: "上午：進行游泳賽道和自行車賽道的最後勘查。中午：所有參賽裝備放置於轉換區。下午：技術會議與比賽規則再確認。早晚餐高碳水飲食。", activities: ["賽道勘查", "轉換區放車/裝備", "技術會議", "高碳水晚餐"] },
-            // NEW DAY 6 (Original Day 7 - Race Day shifted to 11/08)
             { day: 6, date: "11/08 (六)", location: "馬貝拉", title: "✨ Ironman 世界錦標賽日！", transport: "SUV 協助後勤。", details: "全天：參賽者投入比賽。親友團：在轉換區、終點線進行關鍵補給與加油。晚上：慶祝晚宴或放鬆休息。", activities: ["游泳 (3.8k)", "自行車 (180k)", "跑步 (42.2k)", "終點線慶祝"] },
-            // NEW DAY 7 (Original Day 8)
             { day: 7, date: "11/09 (日)", location: "馬貝拉", title: "賽後恢復與城市漫步", transport: "市區內移動。", details: "上午：選手領回裝備與自行車（歸還租賃車輛）。下午：在馬貝拉舊城區享受悠閒時光，品嚐地中海美食，進行輕度恢復活動。", activities: ["領取裝備/歸還租賃自行車", "舊城區探索", "賽後按摩/恢復"] },
-            // NEW DAY 8 (Original Day 9)
             { day: 8, date: "11/10 (一)", location: "塞維利亞 (Seville)", title: "轉戰塞維利亞", transport: "SUV 自駕 (馬貝拉-塞維利亞: 2.5hr)。", details: "上午：從馬貝拉出發，前往安達魯西亞首府—塞維利亞。下午：入住公寓後，進行輕鬆的城市漫步，避免過度勞累。", activities: ["短途駕駛", "入住塞維利亞公寓", "河畔散步"] },
-            // NEW DAY 9 (Original Day 10)
             { day: 9, date: "11/11 (二)", location: "塞維利亞", title: "佛朗明哥與西班牙廣場", transport: "市區內移動。", details: "上午：參觀塞維利亞大教堂與王宮 (Alcázar)。下午：在壯觀的西班牙廣場拍照留念。晚上：預訂佛朗明哥舞蹈表演。", activities: ["塞維利亞王宮", "西班牙廣場", "佛朗明哥表演"] },
-            // NEW DAY 10 (Original Day 11)
             { day: 10, date: "11/12 (三)", location: "科爾多瓦 (Córdoba)", title: "科爾多瓦：清真寺與花巷", transport: "SUV 自駕 (塞維利亞-科爾多瓦: 1.5hr)。", details: "上午：前往科爾多瓦。下午：參觀清真寺大教堂 (Mezquita-Cathedral)。探索著名的百花巷 (Calleja de las Flores)。", activities: ["清真寺大教堂", "百花巷探索", "羅馬橋日落"] },
-            // NEW DAY 11 (Original Day 12)
             { day: 11, date: "11/13 (四)", location: "馬德里", title: "返回馬德里與購物", transport: "SUV 自駕 (科爾多瓦-馬德里: 4hr)。", details: "上午：啟程返回馬德里。下午：抵達後進行最後的購物活動（例如太陽門廣場或英國宮百貨）。晚上：享用告別晚餐。", activities: ["長途駕駛", "最後購物", "告別晚餐"] },
-            // NEW DAY 12 (Original Day 13)
             { day: 12, date: "11/14 (五)", location: "馬德里 (MAD)", title: "啟程回國", transport: "SUV 開往 MAD 機場。", details: "上午：最後整理行李。前往馬德里機場 (MAD) 歸還租賃車輛。搭乘國際航班返回台灣。", activities: ["歸還 SUV", "機場報到", "國際航班"] }
         ];
-
-        // --- Core JavaScript Logic (Unchanged from previous versions) ---
 
         document.addEventListener('DOMContentLoaded', () => {
             renderChecklist();
@@ -204,7 +189,6 @@
             document.getElementById('total-cost').textContent = new Intl.NumberFormat('en-US').format(TRIP_DATA.estimatedCost);
         });
 
-        // 1. Checklist Rendering and Interaction
         const checklistContainer = document.getElementById('checklist-container');
 
         function renderChecklist() {
@@ -226,7 +210,6 @@
             }
         }
 
-        // 2. Timeline Rendering and Interaction
         const timelineContainer = document.getElementById('timeline-container');
 
         function renderTimeline() {
@@ -256,7 +239,6 @@
             const iconElement = document.getElementById(`icon-${dayId}`);
 
             if (detailsElement.classList.contains('hidden')) {
-                // Collapse all others and expand this one
                 document.querySelectorAll('[id^="details-"]').forEach(el => el.classList.add('hidden'));
                 document.querySelectorAll('[id^="icon-"]').forEach(el => el.textContent = '▼');
 
@@ -268,7 +250,6 @@
             }
         }
 
-        // 3. Chart.js Implementation (Cost Breakdown Donut Chart)
         function renderCostChart() {
             const ctx = document.getElementById('costBreakdownChart').getContext('2d');
             const data = TRIP_DATA.costBreakdown;
