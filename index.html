@@ -269,6 +269,12 @@
     </footer>
 
     <script>
+        // Helper function to generate Google Maps link
+        function getGoogleMapsLink(address) {
+            const encodedAddress = encodeURIComponent(address);
+            return `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+        }
+
         const TRIP_DATA = {
             totalDays: 12,
             totalPeople: 8,
@@ -302,7 +308,10 @@
                 location: "馬德里 → 托雷多", 
                 title: "馬德里 → 托雷多", 
                 transport: "12:40 抵達馬德里，14:30 領取租車，自駕至托雷多 (1hr 15min)。", 
-                activities: ["12:40 抵達馬德里", "14:30 領取租車", "15:30-16:00 抵達托雷多並 check-in", "16:00-17:00 小休/市區逛逛", "18:00 Mirador del Valle 看日落", "20:15 晚餐", "22:00 休息調整時差"]
+                activities: ["12:40 抵達馬德里", "14:30 領取租車", "15:30-16:00 抵達托雷多並 check-in", "16:00-17:00 小休/市區逛逛", "18:00 Mirador del Valle 看日落", "20:15 晚餐", "22:00 休息調整時差"],
+                food_recommendation: "必嚐當地甜點 Mazapán (杏仁糖)，以及經典的托雷多燉肉 Carcamusas。",
+                accommodationName: "Hotel Domus Plaza Zocodover",
+                accommodationAddress: "Armas 7, 托萊多, 45001, 西班牙"
             },
             { 
                 day: 2, 
@@ -310,7 +319,10 @@
                 location: "托雷多 → 格拉納達", 
                 title: "托雷多 → 格拉納達", 
                 transport: "SUV 自駕 (托雷多-格拉納達: 4hr，含20-30分鐘休息)。", 
-                activities: ["07:30 晨跑/散步", "08:30 早餐", "10:00 托雷多主教堂", "12:00 午餐", "13:30 出發", "中途休息 20-30 分鐘", "18:00 抵達格拉納達", "20:00 晚餐"]
+                activities: ["07:30 晨跑/散步", "08:30 早餐", "10:00 托雷多主教堂", "12:00 午餐", "13:30 出發", "中途休息 20-30 分鐘", "18:00 抵達格拉納達", "20:00 晚餐"],
+                food_recommendation: "在托萊多或格拉納達邊緣休息站享用午餐。",
+                accommodationName: "阿里薩熱斯酒店",
+                accommodationAddress: "P.º de la Sabica, 40, 18009 格拉納達, 安達盧西亞, 西班牙"
             },
             { 
                 day: 3, 
@@ -318,7 +330,10 @@
                 location: "格拉納達 → 馬貝拉", 
                 title: "格拉納達 → 馬貝拉", 
                 transport: "SUV 自駕 (格拉納達-馬貝拉: 2hr)。", 
-                activities: ["8:00 阿爾罕布拉宮（購票碰運氣）", "08:30-09:45 納斯里德宮", "09:45-11:00 赫內拉利費宮與花園", "11:00-11:30 彈性時間", "11:30 離開，午餐", "13:00 出發往馬貝拉", "16:00-16:30 抵達馬貝拉並 check-in", "17:00-18:00 選手報到 + EXPO"]
+                activities: ["8:00 阿爾罕布拉宮（購票碰運氣）", "08:30-09:45 納斯里德宮", "09:45-11:00 赫內拉利費宮與花園", "11:00-11:30 彈性時間", "11:30 離開，午餐", "13:00 出發往馬貝拉", "16:00-16:30 抵達馬貝拉並 check-in", "17:00-18:00 選手報到 + EXPO"],
+                food_recommendation: "格拉納達提供免費 Tapas！餐後甜點推薦 Piononos (一種小糕點)。",
+                accommodationName: "La Maestranza 8 b Lotta (4晚)",
+                accommodationAddress: "Calle las ventas, Bajo, 29670 馬貝拉, 西班牙"
             },
             { 
                 day: 4, 
@@ -326,7 +341,10 @@
                 location: "馬貝拉", 
                 title: "馬貝拉（賽事準備）", 
                 transport: "市區內移動。", 
-                activities: ["領取租賃自行車（雅菁）", "EXPO 參觀", "海域試游", "賽道勘查", "女生轉換區 Check-in", "高碳水晚餐", "早點休息"]
+                activities: ["領取租賃自行車（雅菁）", "EXPO 參觀", "海域試游", "賽道勘查", "女生轉換區 Check-in", "高碳水晚餐", "早點休息"],
+                food_recommendation: "賽前準備：以均衡的高碳水地中海飲食為主。",
+                accommodationName: "La Maestranza 8 b Lotta (續住)",
+                accommodationAddress: "Calle las ventas, Bajo, 29670 馬貝拉, 西班牙"
             },
             { 
                 day: 5, 
@@ -334,7 +352,10 @@
                 location: "馬貝拉", 
                 title: "✨ 馬貝拉（女子組賽事）", 
                 transport: "SUV 協助後勤。", 
-                activities: ["8:00 雅菁開賽（女子組）", "親友團關鍵點位加油", "男生領取自行車（皓中哥、光武）", "男生轉換區 Check-in", "晚餐慶祝/早休息"]
+                activities: ["8:00 雅菁開賽（女子組）", "親友團關鍵點位加油", "男生領取自行車（皓中哥、光武）", "男生轉換區 Check-in", "晚餐慶祝/早休息"],
+                food_recommendation: "賽後慶祝：享受馬貝拉的高級海鮮餐廳或 Tapas bar。",
+                accommodationName: "La Maestranza 8 b Lotta (續住)",
+                accommodationAddress: "Calle las ventas, Bajo, 29670 馬貝拉, 西班牙"
             },
             { 
                 day: 6, 
@@ -342,7 +363,10 @@
                 location: "馬貝拉", 
                 title: "🔥 馬貝拉（男子組賽事）", 
                 transport: "SUV 協助後勤。", 
-                activities: ["8:00 男子組開賽（皓中哥、光武）", "游泳 (1.9km)", "自行車 (90km)", "跑步 (21.1km)", "終點線慶祝", "下午轉換區 Check-out", "慶祝晚宴"]
+                activities: ["8:00 男子組開賽（皓中哥、光武）", "游泳 (1.9km)", "自行車 (90km)", "跑步 (21.1km)", "終點線慶祝", "下午轉換區 Check-out", "慶祝晚宴"],
+                food_recommendation: "賽後慶祝晚宴，全體為三位鐵人喝采！",
+                accommodationName: "La Maestranza 8 b Lotta (最後一晚)",
+                accommodationAddress: "Calle las ventas, Bajo, 29670 馬貝拉, 西班牙"
             },
             { 
                 day: 7, 
@@ -350,7 +374,10 @@
                 location: "馬貝拉 → 隆達 → 塞維亞", 
                 title: "馬貝拉 → 隆達 → 塞維亞", 
                 transport: "SUV 自駕 (馬貝拉-隆達-塞維亞: 3hr 5min，含隆達停留 2hr)。", 
-                activities: ["8:00 早餐", "9:30 退房、還自行車", "10:30 出發", "12:00 抵達隆達", "隆達新橋 & 老城（約 2hr）", "14:00 離開隆達", "16:30 抵達塞維亞", "20:00 晚餐/佛朗明哥秀（可選）"]
+                activities: ["8:00 早餐", "9:30 退房、還自行車", "10:30 出發", "12:00 抵達隆達", "隆達新橋 & 老城（約 2hr）", "14:00 離開隆達", "16:30 抵達塞維亞", "20:00 晚餐/佛朗明哥秀（可選）"],
+                food_recommendation: "推薦在隆達找一間面向峽谷的景觀餐廳享用午餐，同時欣賞新橋的壯麗景色。",
+                accommodationName: "聖克魯斯街區的迷人公寓 + 伊瓦拉伯爵三世優雅之家酒店 (2晚)",
+                accommodationAddress: "Calle Conde de Ibarra Número 12 portal 1, 1º A, 老城區, 41004 塞維利亞, 西班牙"
             },
             { 
                 day: 8, 
@@ -358,7 +385,10 @@
                 location: "塞維亞", 
                 title: "塞維亞（深度遊）", 
                 transport: "市區內移動（步行為主）。", 
-                activities: ["水道橋", "塞維亞王宮（Alcázar）", "大教堂 + 希拉達塔", "西班牙廣場", "聖十字區漫步", "晚上佛朗明哥表演"]
+                activities: ["水道橋", "塞維亞王宮（Alcázar）", "大教堂 + 希拉達塔", "西班牙廣場", "聖十字區漫步", "晚上佛朗明哥表演"],
+                food_recommendation: "塞維亞的經典菜餚是 Cola de Toro (燉牛尾)，以及搭配當地雪利酒的 Jamón Ibérico (伊比利火腿)。",
+                accommodationName: "聖克魯斯街區的迷人公寓 + 伊瓦拉伯爵三世優雅之家酒店 (續住)",
+                accommodationAddress: "Calle Conde de Ibarra Número 12 portal 1, 1º A, 老城區, 41004 塞維利亞, 西班牙"
             },
             { 
                 day: 9, 
@@ -366,7 +396,10 @@
                 location: "塞維亞 → 梅里達 → 卡塞雷斯", 
                 title: "塞維亞 → 梅里達 → 卡塞雷斯", 
                 transport: "SUV 自駕 (塞維亞-卡塞雷斯: 2hr，含梅里達停留)。", 
-                activities: ["上午塞維亞購物/遺珠景點", "中午出發", "梅里達羅馬劇院與競技場", "下午抵達卡塞雷斯", "卡塞雷斯老城區散步", "晚餐"]
+                activities: ["上午塞維亞購物/遺珠景點", "中午出發", "梅里達羅馬劇院與競技場", "下午抵達卡塞雷斯", "卡塞雷斯老城區散步", "晚餐"],
+                food_recommendation: "卡塞雷斯以火腿和奶酪聞名。必試 Torta del Casar (濃郁綿羊奶酪) 和高品質的 Ibérico Pork 製品。",
+                accommodationName: "恩爾茨奧克多宮殿酒店",
+                accommodationAddress: "Plaza San Antonio, 10003 Cáceres, Spain"
             },
             { 
                 day: 10, 
@@ -374,7 +407,10 @@
                 location: "卡塞雷斯 → 馬德里", 
                 title: "卡塞雷斯 → 特魯希略 → Oropesa → 馬德里", 
                 transport: "SUV 自駕 (卡塞雷斯-馬德里: 3.5hr / 297km，含停留)。", 
-                activities: ["7:00 晨跑 30min", "8:00 早餐", "9:00 出發", "09:45 抵達特魯希略", "12:15 抵達 Oropesa", "13:30 午餐", "15:00 出發往馬德里", "16:30-17:00 抵達馬德里、還車", "20:00 晚餐 + 散步"]
+                activities: ["7:00 晨跑 30min", "8:00 早餐", "9:00 出發", "09:45 抵達特魯希略", "12:15 抵達 Oropesa", "13:30 午餐", "15:00 出發往馬德里", "16:30-17:00 抵達馬德里、還車", "20:00 晚餐 + 散步"],
+                food_recommendation: "馬德里晚餐推薦：找一家道地的西班牙小吃店享用各式 Tapas。",
+                accommodationName: "馬德里 Airbnb 公寓 A + B (2晚)",
+                accommodationAddress: "Calle del Arenal, 8, 28013 Madrid, Spain"
             },
             { 
                 day: 11, 
@@ -382,7 +418,10 @@
                 location: "馬德里", 
                 title: "馬德里（市區觀光）", 
                 transport: "市區內移動（地鐵/步行）。", 
-                activities: ["普拉多博物館", "馬德里王宮", "馬約爾廣場", "太陽門廣場", "Gran Vía 購物", "告別晚餐"]
+                activities: ["普拉多博物館", "馬德里王宮", "馬約爾廣場", "太陽門廣場", "Gran Vía 購物", "告別晚餐"],
+                food_recommendation: "推薦在聖米格爾市場 (Mercado de San Miguel) 享受豐富的 Tapas 體驗。",
+                accommodationName: "馬德里 Airbnb 公寓 A + B (最後一晚)",
+                accommodationAddress: "Calle del Arenal, 8, 28013 Madrid, Spain"
             },
             { 
                 day: 12, 
@@ -390,7 +429,10 @@
                 location: "馬德里 → 台灣", 
                 title: "馬德里 → 台灣", 
                 transport: "11:00 前往馬德里機場，14:25 國際航班起飛。", 
-                activities: ["整理行李", "最後的西班牙早餐", "11:00 前往機場", "辦理報到與退稅", "14:25 國際航班", "返回台灣"]
+                activities: ["整理行李", "最後的西班牙早餐", "11:00 前往機場", "辦理報到與退稅", "14:25 國際航班", "返回台灣"],
+                food_recommendation: "",
+                accommodationName: "無 (本日退房/返程)",
+                accommodationAddress: ""
             }
         ];
 
@@ -439,11 +481,32 @@
                     </button>
 
                     <div id="details-${item.day}" class="p-4 mt-2 ml-5 bg-white rounded-lg border border-indigo-100 hidden">
+                        <!-- Accommodation Details -->
+                        ${item.accommodationName && item.accommodationName.indexOf('無') === -1 && item.accommodationName.indexOf('本日退房') === -1 ? `
+                            <h4 class="text-md font-semibold text-gray-700 mb-2 mt-1">🏠 當晚住宿：<span class="text-green-600">${item.accommodationName}</span></h4>
+                            ${item.accommodationAddress && item.accommodationAddress !== '' ? `
+                                <p class="text-gray-600 mb-2 text-sm">
+                                    📍 地址: ${item.accommodationAddress} 
+                                    <a href="${getGoogleMapsLink(item.accommodationAddress)}" target="_blank" class="ml-2 text-indigo-500 hover:text-indigo-700 font-medium underline">Google Maps</a>
+                                </p>
+                            ` : ''}
+                            <hr class="my-3 border-indigo-100">
+                        ` : ''}
+                        
+                        <!-- Transport Details -->
                         <h4 class="text-md font-semibold text-gray-700 mb-2">🚌 交通：<span class="text-indigo-600 font-normal">${item.transport}</span></h4>
+                        
+                        <!-- Activities -->
                         <h4 class="text-md font-semibold text-gray-700 mb-3">📋 當日活動:</h4>
                         <ul class="list-disc list-inside text-gray-600 pl-4 space-y-1">
                             ${item.activities.map(act => `<li>${act}</li>`).join('')}
                         </ul>
+                        
+                        <!-- FOOD RECOMMENDATION SECTION -->
+                        ${item.food_recommendation ? `
+                            <h4 class="text-md font-semibold text-gray-700 mt-4 mb-1">🍽️ 美食推薦:</h4>
+                            <p class="text-amber-700 bg-amber-50 p-2 rounded-lg text-sm">${item.food_recommendation}</p>
+                        ` : ''}
                     </div>
                 </div>
             `).join('');
