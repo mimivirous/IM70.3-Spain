@@ -1,0 +1,313 @@
+<!-- Chosen Palette: Coastal Horizon (Main: White/Light Gray, Accent: Indigo-600, Secondary Accent: Amber-600) -->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ironman 西班牙 12 日探索儀表板</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f7f7; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container { max-width: 600px; height: 400px; }
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -15px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background-color: #4f46e5; /* Indigo-600 */
+            border-radius: 50%;
+            border: 3px solid #f7f7f7;
+        }
+        .timeline-item { position: relative; padding-left: 20px; border-left: 2px solid #e0e0e0; margin-bottom: 20px; }
+    </style>
+</head>
+<body class="antialiased text-gray-800">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-indigo-600">🇪🇸 Ironman 西班牙 (12日行程)</h1>
+            <nav class="space-x-4">
+                <a href="#dashboard" class="text-gray-600 hover:text-indigo-600 transition duration-150 font-medium hidden sm:inline">儀表板</a>
+                <a href="#itinerary" class="text-gray-600 hover:text-indigo-600 transition duration-150 font-medium">行程時間軸</a>
+                <a href="#logistics" class="text-gray-600 hover:text-indigo-600 transition duration-150 font-medium hidden sm:inline">物流/費用</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="mb-12">
+            <h2 class="text-3xl font-extrabold text-indigo-700 mb-6 border-b-2 border-indigo-200 pb-2">🎯 旅程概覽與準備行動</h2>
+            <p class="mb-8 text-gray-600">
+                本儀表板匯集了 **12 日**西班牙之旅的關鍵數據。行程已壓縮，Day 1 抵達後將直接轉往托萊多住宿。
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+                <div class="p-5 bg-white rounded-xl shadow-lg border-b-4 border-indigo-500 transform hover:scale-[1.02] transition duration-200">
+                    <p class="text-sm font-medium text-gray-500">總日數</p>
+                    <p id="stat-days" class="text-3xl font-bold text-indigo-800">12</p>
+                </div>
+                <div class="p-5 bg-white rounded-xl shadow-lg border-b-4 border-indigo-500 transform hover:scale-[1.02] transition duration-200">
+                    <p class="text-sm font-medium text-gray-500">參與人數</p>
+                    <p id="stat-people" class="text-3xl font-bold text-indigo-800">8 位</p>
+                </div>
+                <div class="p-5 bg-white rounded-xl shadow-lg border-b-4 border-amber-500 transform hover:scale-[1.02] transition duration-200">
+                    <p class="text-sm font-medium text-gray-500">交通工具</p>
+                    <p id="stat-transport" class="text-3xl font-bold text-amber-800">2 輛 SUV</p>
+                </div>
+                <div class="p-5 bg-white rounded-xl shadow-lg border-b-4 border-amber-500 transform hover:scale-[1.02] transition duration-200">
+                    <p class="text-sm font-medium text-gray-500">比賽地點</p>
+                    <p id="stat-race" class="text-xl font-bold text-amber-800 mt-1">Marbella</p>
+                </div>
+            </div>
+
+            <!-- Interactive Checklist -->
+            <div class="p-6 bg-white rounded-xl shadow-2xl">
+                <h3 class="text-xl font-bold text-indigo-600 mb-4">✅ 行前準備清單 (8/1-8/13)</h3>
+                <p class="text-sm text-gray-500 mb-4">點擊項目即可追蹤完成狀態。</p>
+                <div id="checklist-container" class="space-y-3">
+                    <!-- Checklist items will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Itinerary Section (Timeline) -->
+        <section id="itinerary" class="mb-12 pt-10">
+            <h2 class="text-3xl font-extrabold text-indigo-700 mb-6 border-b-2 border-indigo-200 pb-2">📅 12 日行程時間軸 (點擊查看細節)</h2>
+            <p class="mb-8 text-gray-600">
+                行程已更新為 12 天，首日抵達後即前往托萊多入住。
+            </p>
+
+            <div id="timeline-container" class="relative">
+                <!-- Timeline items will be injected here by JS -->
+            </div>
+        </section>
+
+        <!-- Logistics & Cost Section -->
+        <section id="logistics" class="pt-10">
+            <h2 class="text-3xl font-extrabold text-indigo-700 mb-6 border-b-2 border-indigo-200 pb-2">💰 物流與費用分析</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Logistics Summary Card -->
+                <div class="p-6 bg-white rounded-xl shadow-2xl flex flex-col justify-center">
+                    <h3 class="text-xl font-bold text-indigo-600 mb-3">🚗 核心物流決策</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <div class="p-3 bg-indigo-50 rounded-lg">
+                            <p class="font-semibold text-indigo-800">交通方案 (已確認)</p>
+                            <p>確定租賃 **2 輛中大型 SUV**，以舒適容納 8 人和所有行李。全程自駕，行程彈性最高。</p>
+                        </div>
+                        <div class="p-3 bg-amber-50 rounded-lg">
+                            <p class="font-semibold text-amber-800">自行車處理 (已確認)</p>
+                            <p>所有 Ironman 選手的自行車將在馬貝拉 **當地租賃**，免去長途飛行和運輸的麻煩。</p>
+                        </div>
+                        <div class="p-3 bg-indigo-50 rounded-lg">
+                            <p class="font-semibold text-semibold text-indigo-800">住宿總結</p>
+                            <p>住宿安排皆以家庭式公寓為主，確保團員能有公共空間進行賽前準備和放鬆。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cost Chart Container -->
+                <div>
+                    <h3 class="text-xl font-bold text-indigo-600 mb-4 text-center">總預估費用 (約 €<span id="total-cost">65,000</span>) 分佈</h3>
+                    <p class="text-sm text-center text-gray-500 mb-2">單位：歐元 (EUR)</p>
+                    <div class="chart-container shadow-2xl rounded-xl bg-white p-4">
+                        <canvas id="costBreakdownChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 py-6 bg-gray-100 text-center text-sm text-gray-500">
+        <p>&copy; 2025 Ironman 西班牙團隊規劃 | 資料更新日期：2025/08/01</p>
+    </footer>
+
+    <script>
+        const TRIP_DATA = {
+            totalDays: 12,
+            totalPeople: 8,
+            raceLocation: "Marbella, Spain",
+            estimatedCost: 65000,
+            costBreakdown: [
+                { label: "國際機票 (8人)", amount: 32000, percentage: 49.23, color: 'rgba(79, 70, 229, 0.8)' },
+                { label: "住宿 (11晚)", amount: 14000, percentage: 21.54, color: 'rgba(234, 88, 12, 0.8)' }, // Adjusted cost for 1 fewer night
+                { label: "租車/油費 (2 SUV)", amount: 8000, percentage: 12.31, color: 'rgba(129, 140, 248, 0.8)' },
+                { label: "賽事報名費", amount: 6500, percentage: 10.00, color: 'rgba(251, 191, 36, 0.8)' },
+                { label: "其他費用 (租車/保險等)", amount: 4500, percentage: 6.92, color: 'rgba(209, 213, 219, 0.8)' } // Re-allocated difference
+            ]
+        };
+
+        let CHECKLIST_STATE = [
+            { id: 1, text: "確認所有成員護照效期超過 6 個月", completed: false },
+            { id: 2, text: "完成 2 輛 SUV 租車預訂 (含保險)", completed: true },
+            { id: 3, text: "確認所有駕駛國際駕照 (IDP) 效期", completed: false },
+            { id: 4, text: "所有成員西班牙簽證/旅行授權準備", completed: false },
+            { id: 5, text: "Ironman 賽事報到文件準備", completed: false },
+            { id: 6, text: "確認租賃腳踏車的尺寸與領取地點", completed: false },
+            { id: 7, text: "購買旅行/意外/醫療保險", completed: true },
+        ];
+
+        // UPDATED ITINERARY DATA: Day 1 is now Toledo, Day 2 is long drive to Granada.
+        const ITINERARY_DATA = [
+            // NEW DAY 1: Arrive MAD, Drive to Toledo, Overnight in Toledo
+            { day: 1, date: "11/03 (一)", location: "托萊多 (Toledo)", title: "抵達、租車與古都巡禮", transport: "MAD 機場領取 2 輛 SUV，自駕至托萊多 (1hr)。", details: "上午：國際航班抵達馬德里 (MAD)，領取租車。下午：直接驅車前往托萊多並入住。傍晚在托萊多古城區輕鬆漫步，適應時差，並欣賞古城夜景。", activities: ["國際長途飛行", "領取 2 輛 SUV", "入住托萊多公寓", "托萊多古城區漫步"] },
+            // NEW DAY 2: Long Transfer to Granada
+            { day: 2, date: "11/04 (二)", location: "格拉納達 (Granada)", title: "轉戰格拉納達 (長途轉場日)", transport: "SUV 自駕 (托萊多-格拉納達: 4.5hr)。", details: "早餐後，進行長途駕駛前往格拉納達。這是前往馬貝拉前最長的駕駛路段，請確保駕駛輪替與足夠的中途休息。傍晚抵達並入住。", activities: ["長途駕駛 (中停休息)", "入住格拉納達公寓", "晚餐與休息"] },
+            // NEW DAY 3 (Original Day 4)
+            { day: 3, date: "11/05 (三)", location: "格拉納達", title: "阿爾罕布拉宮與城市探索", transport: "市區內移動。", details: "上午：參觀世界遺產阿爾罕布拉宮 (Alhambra Palace)，需提前預訂門票。下午：在阿爾拜辛區 (Albaicín) 欣賞宮殿美景。選手進行輕度訓練。", activities: ["阿爾罕布拉宮 (Alhambra)", "阿爾拜辛區散步", "塔帕斯晚餐"] },
+            // NEW DAY 4 (Original Day 5)
+            { day: 4, date: "11/06 (四)", location: "馬貝拉 (Marbella)", title: "轉戰馬貝拉 & 賽事準備", transport: "SUV 自駕 (格拉納達-馬貝拉: 2hr)。", details: "上午：驅車前往馬貝拉。下午：Ironman 選手進行報到、領取物資及租賃自行車。非選手進行海灘休閒。晚上：準備週末的比賽。", activities: ["短途駕駛", "Ironman 選手報到", "領取租賃自行車", "海灘放鬆"] },
+            // NEW DAY 5 (Original Day 6)
+            { day: 5, date: "11/07 (五)", location: "馬貝拉", title: "賽道勘查與裝備檢查", transport: "SUV 協助運送裝備。", details: "上午：進行游泳賽道和自行車賽道的最後勘查。中午：所有參賽裝備放置於轉換區。下午：技術會議與比賽規則再確認。早晚餐高碳水飲食。", activities: ["賽道勘查", "轉換區放車/裝備", "技術會議", "高碳水晚餐"] },
+            // NEW DAY 6 (Original Day 7 - Race Day shifted to 11/08)
+            { day: 6, date: "11/08 (六)", location: "馬貝拉", title: "✨ Ironman 世界錦標賽日！", transport: "SUV 協助後勤。", details: "全天：參賽者投入比賽。親友團：在轉換區、終點線進行關鍵補給與加油。晚上：慶祝晚宴或放鬆休息。", activities: ["游泳 (3.8k)", "自行車 (180k)", "跑步 (42.2k)", "終點線慶祝"] },
+            // NEW DAY 7 (Original Day 8)
+            { day: 7, date: "11/09 (日)", location: "馬貝拉", title: "賽後恢復與城市漫步", transport: "市區內移動。", details: "上午：選手領回裝備與自行車（歸還租賃車輛）。下午：在馬貝拉舊城區享受悠閒時光，品嚐地中海美食，進行輕度恢復活動。", activities: ["領取裝備/歸還租賃自行車", "舊城區探索", "賽後按摩/恢復"] },
+            // NEW DAY 8 (Original Day 9)
+            { day: 8, date: "11/10 (一)", location: "塞維利亞 (Seville)", title: "轉戰塞維利亞", transport: "SUV 自駕 (馬貝拉-塞維利亞: 2.5hr)。", details: "上午：從馬貝拉出發，前往安達魯西亞首府—塞維利亞。下午：入住公寓後，進行輕鬆的城市漫步，避免過度勞累。", activities: ["短途駕駛", "入住塞維利亞公寓", "河畔散步"] },
+            // NEW DAY 9 (Original Day 10)
+            { day: 9, date: "11/11 (二)", location: "塞維利亞", title: "佛朗明哥與西班牙廣場", transport: "市區內移動。", details: "上午：參觀塞維利亞大教堂與王宮 (Alcázar)。下午：在壯觀的西班牙廣場拍照留念。晚上：預訂佛朗明哥舞蹈表演。", activities: ["塞維利亞王宮", "西班牙廣場", "佛朗明哥表演"] },
+            // NEW DAY 10 (Original Day 11)
+            { day: 10, date: "11/12 (三)", location: "科爾多瓦 (Córdoba)", title: "科爾多瓦：清真寺與花巷", transport: "SUV 自駕 (塞維利亞-科爾多瓦: 1.5hr)。", details: "上午：前往科爾多瓦。下午：參觀清真寺大教堂 (Mezquita-Cathedral)。探索著名的百花巷 (Calleja de las Flores)。", activities: ["清真寺大教堂", "百花巷探索", "羅馬橋日落"] },
+            // NEW DAY 11 (Original Day 12)
+            { day: 11, date: "11/13 (四)", location: "馬德里", title: "返回馬德里與購物", transport: "SUV 自駕 (科爾多瓦-馬德里: 4hr)。", details: "上午：啟程返回馬德里。下午：抵達後進行最後的購物活動（例如太陽門廣場或英國宮百貨）。晚上：享用告別晚餐。", activities: ["長途駕駛", "最後購物", "告別晚餐"] },
+            // NEW DAY 12 (Original Day 13)
+            { day: 12, date: "11/14 (五)", location: "馬德里 (MAD)", title: "啟程回國", transport: "SUV 開往 MAD 機場。", details: "上午：最後整理行李。前往馬德里機場 (MAD) 歸還租賃車輛。搭乘國際航班返回台灣。", activities: ["歸還 SUV", "機場報到", "國際航班"] }
+        ];
+
+        // --- Core JavaScript Logic (Unchanged from previous versions) ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderChecklist();
+            renderTimeline();
+            renderCostChart();
+            document.getElementById('total-cost').textContent = new Intl.NumberFormat('en-US').format(TRIP_DATA.estimatedCost);
+        });
+
+        // 1. Checklist Rendering and Interaction
+        const checklistContainer = document.getElementById('checklist-container');
+
+        function renderChecklist() {
+            checklistContainer.innerHTML = CHECKLIST_STATE.map(item => `
+                <div id="item-${item.id}" class="flex items-center p-3 rounded-lg cursor-pointer transition duration-150 ${item.completed ? 'bg-green-50' : 'bg-gray-100 hover:bg-gray-200'}" onclick="toggleChecklist(${item.id})">
+                    <span class="text-xl mr-3 ${item.completed ? 'text-green-600' : 'text-gray-400'}">
+                        ${item.completed ? '✔' : '☐'}
+                    </span>
+                    <p class="text-gray-700 font-medium ${item.completed ? 'line-through text-gray-500' : ''}">${item.text}</p>
+                </div>
+            `).join('');
+        }
+
+        function toggleChecklist(id) {
+            const index = CHECKLIST_STATE.findIndex(item => item.id === id);
+            if (index !== -1) {
+                CHECKLIST_STATE[index].completed = !CHECKLIST_STATE[index].completed;
+                renderChecklist();
+            }
+        }
+
+        // 2. Timeline Rendering and Interaction
+        const timelineContainer = document.getElementById('timeline-container');
+
+        function renderTimeline() {
+            timelineContainer.innerHTML = ITINERARY_DATA.map(item => `
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <button class="flex items-center justify-between w-full p-4 pr-6 bg-white rounded-lg shadow-md hover:bg-indigo-50 transition duration-150 focus:outline-none" onclick="toggleDay(${item.day})">
+                        <span class="text-lg font-bold ${item.day === 6 ? 'text-amber-600' : 'text-indigo-700'}">${item.day === 6 ? '🔥 ' : ''}Day ${item.day}: ${item.title}</span>
+                        <span class="text-sm font-medium text-gray-500">${item.date} (${item.location})</span>
+                        <span id="icon-${item.day}" class="text-xl text-indigo-500">▼</span>
+                    </button>
+
+                    <div id="details-${item.day}" class="p-4 mt-2 ml-5 bg-white rounded-lg border border-indigo-100 hidden">
+                        <h4 class="text-md font-semibold text-gray-700 mb-2">🚌 交通/住宿：<span class="text-indigo-600 font-normal">${item.transport}</span></h4>
+                        <p class="text-gray-600 mb-3">${item.details}</p>
+                        <h4 class="text-md font-semibold text-gray-700 mb-1">📋 當日活動:</h4>
+                        <ul class="list-disc list-inside text-gray-600 pl-4 space-y-1">
+                            ${item.activities.map(act => `<li>${act}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleDay(dayId) {
+            const detailsElement = document.getElementById(`details-${dayId}`);
+            const iconElement = document.getElementById(`icon-${dayId}`);
+
+            if (detailsElement.classList.contains('hidden')) {
+                // Collapse all others and expand this one
+                document.querySelectorAll('[id^="details-"]').forEach(el => el.classList.add('hidden'));
+                document.querySelectorAll('[id^="icon-"]').forEach(el => el.textContent = '▼');
+
+                detailsElement.classList.remove('hidden');
+                iconElement.textContent = '▲';
+            } else {
+                detailsElement.classList.add('hidden');
+                iconElement.textContent = '▼';
+            }
+        }
+
+        // 3. Chart.js Implementation (Cost Breakdown Donut Chart)
+        function renderCostChart() {
+            const ctx = document.getElementById('costBreakdownChart').getContext('2d');
+            const data = TRIP_DATA.costBreakdown;
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.map(d => d.label),
+                    datasets: [{
+                        data: data.map(d => d.amount),
+                        backgroundColor: data.map(d => d.color),
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                font: { size: 13, family: 'Inter' }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed;
+                                    const percentage = data[context.dataIndex].percentage.toFixed(2);
+                                    return `${label}: €${new Intl.NumberFormat('en-US').format(value)} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
