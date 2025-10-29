@@ -320,22 +320,17 @@
         const timelineContainer = document.getElementById('timeline-container');
 
         function renderTimeline() {
-            timelineContainer.innerHTML = ITINERARY_DATA.map(item => {
-                // 從 title 中提取簡潔的副標題
-                let subtitle = '';
-                if (item.day === 4) subtitle = '賽事準備';
-                else if (item.day === 5) subtitle = '女子組賽事';
-                else if (item.day === 6) subtitle = '男子組賽事';
-                else if (item.day === 8) subtitle = '深度遊';
-                else if (item.day === 11) subtitle = '市區觀光';
-                
-                return `
+            timelineContainer.innerHTML = ITINERARY_DATA.map(item => `
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <button class="flex items-center justify-between w-full p-4 pr-6 bg-white rounded-lg shadow-md hover:bg-indigo-50 transition duration-150 focus:outline-none" onclick="toggleDay(${item.day})">
-                        <span class="text-lg font-bold ${(item.day === 5 || item.day === 6) ? 'text-amber-600' : 'text-indigo-700'}">${(item.day === 5 || item.day === 6) ? '🔥 ' : ''}Day ${item.day}: ${item.title}</span>
-                        <span class="text-sm font-medium text-gray-500">${item.date} ${subtitle ? '(' + subtitle + ')' : ''}</span>
-                        <span id="icon-${item.day}" class="text-xl text-indigo-500">▼</span>
+                    <button class="flex items-center justify-between w-full p-4 bg-white rounded-lg shadow-md hover:bg-indigo-50 transition duration-150 focus:outline-none" onclick="toggleDay(${item.day})">
+                        <div class="flex items-center gap-4 flex-1">
+                            <span class="text-lg font-bold ${(item.day === 5 || item.day === 6) ? 'text-amber-600' : 'text-indigo-700'}">${(item.day === 5 || item.day === 6) ? '🔥 ' : ''}Day ${item.day}: ${item.title}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm font-medium text-gray-500 whitespace-nowrap">${item.date}</span>
+                            <span id="icon-${item.day}" class="text-xl text-indigo-500">▼</span>
+                        </div>
                     </button>
 
                     <div id="details-${item.day}" class="p-4 mt-2 ml-5 bg-white rounded-lg border border-indigo-100 hidden">
@@ -347,8 +342,7 @@
                         </ul>
                     </div>
                 </div>
-            `;
-            }).join('');
+            `).join('');
         }
 
         function toggleDay(dayId) {
